@@ -1,8 +1,14 @@
 #run=streamlit run pemail.py
 
+#env
+from dotenv import load_dotenv
+import os
+load_dotenv()
+grok_key=os.getenv("grok_key")
+
 #llm
 from langchain_groq import ChatGroq
-llm=ChatGroq(temperature=0,groq_api_key='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',model_name="llama-3.1-70b-versatile")
+llm=ChatGroq(temperature=0,groq_api_key=grok_key,model_name="llama-3.1-70b-versatile")
 
 #chromadb add csv
 import chromadb
@@ -93,5 +99,3 @@ if submit_button:
         email=write_email(llm,website_data_json,portfolio_link)
         st.code(email,language='markdown')
     except Exception as e:st.error(f"An Error Occurred: {e.args}")
-    
-    

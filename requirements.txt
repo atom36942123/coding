@@ -18,3 +18,4 @@ watchdog
 sentence-transformers
 fastapi[standard]
 websockets
+python-dotenv
