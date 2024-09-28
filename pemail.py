@@ -93,3 +93,5 @@ if submit_button:
         email=write_email(llm,website_data_json,portfolio_link)
         st.code(email,language='markdown')
     except Exception as e:st.error(f"An Error Occurred: {e.args}")
+    
+    
