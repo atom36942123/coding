@@ -163,7 +163,6 @@ cython_debug/
 
 
 #custom
-*.*
 vectorstore/
 env.py
 .DS_Store
