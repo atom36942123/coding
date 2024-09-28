@@ -1,3 +1,4 @@
+#about=demo socket
 #run=fastapi dev psocket.py
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect

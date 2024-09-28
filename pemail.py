@@ -1,3 +1,4 @@
+#about=generate email based on a job url
 #run=streamlit run pemail.py
 
 #env
