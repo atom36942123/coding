@@ -19,3 +19,5 @@ sentence-transformers
 fastapi[standard]
 websockets
 python-dotenv
+matplotlib
+tensorflow
