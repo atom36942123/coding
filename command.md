@@ -1,0 +1,125 @@
+# zzz
+redis size=redis-cli info memory | grep 'used_memory.*human';  
+wrap postgres output=\x on---/x off  
+pid kill=lsof -i:8000---kill -9 <pid>  
+
+# docker  
+brew install --cask docker  
+open -a Docker  
+docker build . -f Dockerfile.txt -t atomapp  
+docker run atomapp  
+
+# env
+python3 -m venv venv  
+source env_name/bin/activate  
+pip freeze > requirements.txt  
+pip install -r requirements.txt  
+pip install pip-upgrader  
+pip-upgrade
+
+# git
+vscode github connect
+git init
+git remote add origin <repo url>
+git branch -M main
+git add .
+git commit -m "1st commit"
+git push origin main
+git push -f origin main
+
+# postgres
+brew install postgresql@16
+brew services start postgresql@16
+brew services stop postgresql@16
+brew services info postgresql@16
+brew services restart postgresql@16
+psql postgres
+
+# redis
+brew install redis 
+brew services start redis
+brew services stop redis
+brew services info redis
+redis-cli
+
+# mongo
+brew tap mongodb/brew
+brew update
+brew install mongodb-community@7.0
+brew services start mongodb-community@7.0
+brew services stop mongodb-community@7.0
+brew services info mongodb-community@7.0
+mongosh
+
+# python alias zshrc
+alias pip=pip3
+alias python=python3
+
+# postgres brew version zshrc
+https://medium.com/@abhinavsinha_/download-and-configure-postgresql16-on-macos-d41dc49217b6
+open ~/.zshrc
+export PATH="/opt/homebrew/opt/postgresql@14/bin:$PATH"
+source ~/.zshrc
+
+
+# postgres reset
+drop schema public cascade;
+create schema public;
+DO
+$$ DECLARE r RECORD; BEGIN FOR r IN
+(SELECT tablename FROM pg_tables WHERE schemaname=current_schema() and tablename not in ('spatial_ref_sys')) LOOP
+EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || '
+CASCADE'; END LOOP;
+END $$;
+
+# postgres zzz
+count row=select relname as table_name,n_live_tup as count_row from pg_stat_user_tables;
+refresh mat=refresh materialized view mat_table_object_count;
+version=SELECT version();
+location query=with x as (select location,st_y(location::geometry) as lat,st_x(location::geometry) as long,st_distance(location,st_point(73.192635,22.310696)::geography) as distance_meter from atom order by distance_meter desc)
+select * from x
+
+# postgres schema
+select * from pg_extension;
+database=select *,pg_size_pretty(pg_database_size(datname)) as db_size from pg_database;
+namespace=select * from pg_namespace;
+routine=select * from pg_proc where proname='function_set_updated_at_now'
+trigger=select * from information_schema.triggers;
+activity=select * from pg_stat_activity;
+constraint=select * from information_schema.constraint_column_usage where constraint_schema='public';
+index=select * from pg_indexes where schemaname='public';
+rules=select * from pg_rules;
+identity=select * from pg_attribute where attnum>0 and attidentity in ('a','d');
+table=select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE';
+column=select * from information_schema.columns where table_schema='public';
+
+# postgres drop
+drop connection=SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname='test' AND pid <> pg_backend_pid();
+drop function=drop function function_delete_disable_bulk;
+drop constraint=SELECT 'ALTER TABLE '||table_name||' DROP CONSTRAINT '||constraint_name||';' FROM information_schema.constraint_table_usage where constraint_schema='public';
+drop mat=DROP MATERIALIZED VIEW mat_table_object_count;
+drop view all=SELECT 'DROP VIEW ' || table_name || ';' FROM information_schema.views WHERE table_schema NOT IN ('pg_catalog', 'information_schema') AND table_name !~ '^pg_';
+drop triggers all=SELECT 'DROP TRIGGER ' || trigger_name || ' ON ' || event_object_table || ';' FROM information_schema.triggers WHERE trigger_schema = 'public';
+drop index all=select 'drop index ' || string_agg(i.indexrelid::regclass::text,', ' order by n.nspname,i.indrelid::regclass::text, cl.relname) as output from pg_index i join pg_class cl ON cl.oid = i.indexrelid join pg_namespace n ON n.oid = cl.relnamespace left join pg_constraint co ON co.conindid = i.indexrelid where  n.nspname <> 'information_schema' and n.nspname not like 'pg\_%' and co.conindid is null and not i.indisprimary and not i.indisunique and not i.indisexclusion and not i.indisclustered and not i.indisreplident;
+
+# postgres master
+table master=with x as (select relname as table_name,n_live_tup as count_row from pg_stat_user_tables),y as (select table_name,count(*) as count_column from information_schema.columns group by table_name) select x.*,y.count_column from x left join y on x.table_name=y.table_name order by count_column desc;
+column master=select column_name,count(*),max(data_type) as data_type,max(udt_name) as udt_name from information_schema.columns where table_schema='public' group by column_name order by count desc;
+
+# postgres exim
+export (from psql)=\copy post to 'filename' with (format csv,header);
+import (from psql)=\copy post from 'path' with (format csv,header);
+export column (from psql)=\copy (query) to 'filename' with (format csv,header);
+import column (from psql)=\copy post(type,title,description,link,tag) from /root/atom/atom/post.csv with (format csv,header);
+dump take (from terminal)=pg_dump test > test_backup.sql
+dump upload (from terminal)=psql test_2 < test_backup.sql
+
+# postgres crud
+tag read one=select * from post where 'investor'=any(tag);
+tag read all=select * from post where tag @> '{"xxx","yyy"}';
+tag read any=select * from post where tag && '{"xxx","yyy"}';
+tag read regex=select * from post where (array_to_string(tag,'')~*'xx');
+tag replace=update post set tag=array_replace(tag,'xxx','yyy')
+tag append=update box set tag=array_append(tag,'xxx') where id=1;
+tag append no duplicate=update box set tag=(select array_agg(distinct t) from unnest(tag||'{xxx}') as t) where id=1;
+tag delete=update box set tag=array_remove(tag,'atom') where id=1;
