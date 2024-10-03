@@ -1,4 +1,4 @@
-# docker kafka
+#docker kafka
 --run docker file=docker compose -f docker-compose-kafka.yml up  
 --list all container in new terminal=docker ps  
 --open kafka server from new terminal=docker exec -it <kafka_container_id> /bin/bash  
