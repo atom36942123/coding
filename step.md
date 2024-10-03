@@ -1,0 +1,10 @@
+# docker kafka
+run docker file=docker compose -f docker-compose-kafka.yml up
+list all container in new terminal=docker ps
+open kafka server from new terminal=docker exec -it <kafka_container_id> /bin/bash
+locate Kafka binaries=cd /opt/kafka/bin
+create topic=./kafka-topics.sh --create --topic test-topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+run Kafka Producer from same terminal=./kafka-console-producer.sh --topic test-topic --bootstrap-server localhost:9092
+run Kafka Consumer from new terminal by login to kafka binaries=./kafka-console-consumer.sh --topic test-topic --bootstrap-server localhost:9092 --from-beginning
+creating a Topic with Multiple Partitions=docker exec -it <kafka_container_id> /bin/bash----cd /opt/kafka/bin---./kafka-topics.sh --create --topic test-topic-two --bootstrap-server localhost:9092 --replication-factor 1 --partitions 3 # it will throw error if topic is already there
+
