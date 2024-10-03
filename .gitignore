@@ -167,3 +167,4 @@ vectorstore/
 env.py
 .DS_Store
 .DS_Store
+.vscode
