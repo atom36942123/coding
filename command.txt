@@ -1,5 +1,4 @@
 #zzz
-redis size=redis-cli info memory | grep 'used_memory.*human';  
 wrap postgres output=\x on---/x off  
 pid kill=lsof -i:8000---kill -9 <pid>  
 
@@ -41,6 +40,8 @@ brew services start redis
 brew services stop redis
 brew services info redis
 redis-cli
+keys *
+cli info memory | grep 'used_memory.*human'; 
 
 #mongo
 brew tap mongodb/brew

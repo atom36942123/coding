@@ -1,5 +1,5 @@
 #about=demo streamlit
-#run=streamlit run pstreamlit.py
+#run=streamlit run project/streamlit.py
 
 
 import streamlit as st

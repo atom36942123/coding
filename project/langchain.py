@@ -1,5 +1,5 @@
 #about=generate email based on a job url
-#run=streamlit run pemail.py
+#run=streamlit run project/langchain.py
 
 #env
 from dotenv import load_dotenv
@@ -86,7 +86,7 @@ def write_email(llm,website_data_json,portfolio_link):
     return response.content
 
 #streamlit
-import streamlit as st
+import project.streamlit as st
 st.set_page_config(layout="wide",page_title="Cold Email Generator",page_icon="📧")
 url_input=st.text_input("Enter a URL:")
 submit_button=st.button("Submit")
@@ -100,3 +100,4 @@ if submit_button:
         email=write_email(llm,website_data_json,portfolio_link)
         st.code(email,language='markdown')
     except Exception as e:st.error(f"An Error Occurred: {e.args}")
+
