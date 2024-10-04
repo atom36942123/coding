@@ -21,3 +21,5 @@ websockets
 python-dotenv
 matplotlib
 tensorflow
+aiokafka
+kafka-python-ng
