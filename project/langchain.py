@@ -1,5 +1,4 @@
-#about=generate email based on a job url
-#run=streamlit run project/langchain.py
+#run from script folder=streamlit run langchain.py
 
 #env
 from dotenv import load_dotenv

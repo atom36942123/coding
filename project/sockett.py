@@ -1,5 +1,4 @@
-#about=demo socket
-#run=fastapi dev psocket.py
+#run from script folder=fastapi dev sockett.py
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse

@@ -1,7 +1,7 @@
-#how to run
-# run docker file=project/docker compose -f kafka_start.yml up
-# list all container in new terminal=docker ps  
-# open kafka server from new terminal=docker exec -it b4ebca8a455d /bin/bash  
+#run
+# run docker file from script folder=docker compose -f kafka_docker.yml up
+# list all container in new terminal root=docker ps  
+# open kafka server from new terminal root=docker exec -it b4ebca8a455d /bin/bash  
 # locate Kafka binaries=cd /opt/kafka/bin  
 # create topic=./kafka-topics.sh create topic test-topic bootstrap-server localhost:9092 replication-factor 1 partitions 1  
 # run Kafka Producer from same terminal=./kafka-console-producer.sh topic test-topic bootstrap-server localhost:9092  

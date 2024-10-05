@@ -25,3 +25,6 @@ aiokafka
 kafka-python-ng
 redis
 tf-keras
+pika
+celery
+flower
