@@ -1,4 +1,4 @@
-#runfrom script folder=python rabbitmq_receiver.py
+#run from script folder=python rabbitmq_receiver.py
 
 
 #!/usr/bin/env python
