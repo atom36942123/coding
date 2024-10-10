@@ -1,4 +1,4 @@
-#run from script folder=streamlit run langchain.py
+#run=streamlit run langchain.py
 
 #env
 from dotenv import load_dotenv

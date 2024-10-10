@@ -1,4 +1,18 @@
-#fastapi app
+#image pull=docker pull mongodb/mongodb-community-server:latest
+#container run=docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest
+#terminal=mongosh
+#check count=db.users.countDocuments({})
+
+#brew
+# brew tap mongodb/brew
+# brew update
+# brew install mongodb-community@8.0
+# brew services start mongodb-community@8.0
+# brew services stop mongodb-community@8.0
+# brew services info mongodb-community@8.0
+# brew install --cask mongodb-compass
+
+#fastapi
 from fastapi import FastAPI
 from fastapi import Request
 app = FastAPI()
@@ -6,12 +20,13 @@ app = FastAPI()
 async def root(request:Request):
    return request.headers
     
-#import
+#mongo client
 import motor.motor_asyncio
 from bson import ObjectId
 client=motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
 db=client.test
 
+#api
 @app.post("/create-user")
 async def create_user(request:Request):
    object=await request.json()

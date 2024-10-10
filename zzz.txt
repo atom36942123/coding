@@ -1,19 +1,23 @@
 #zzz
+pid kill=lsof -i:8000---kill -9 <pid>
 wrap postgres output=\x on---/x off  
-pid kill=lsof -i:8000---kill -9 <pid>  
+pgweb container start=docker run -d -p 8081:8081 sosedoff/pgweb
 
 #docker  
-brew install --cask docker  
-open -a Docker  
-docker build . -f Dockerfile.txt -t atomapp  
-docker run atomapp  
+brew install --cask docker
+open -a Docker
+docker images
+docker rmi 8356ae177161
+docker ps -a
+docker stop 1afece41d3b6
+docker rm e8b4168ea14f
 
 #env
-python3 -m venv venv  
-source venv/bin/activate  
-pip freeze > requirements.txt  
-pip install -r requirements.txt  
-pip install pip-upgrader  
+python3 -m venv venv
+source venv/bin/activate
+pip freeze > requirements.txt
+pip install -r requirements.txt
+pip install pip-upgrader
 pip-upgrade
 
 #git
@@ -26,13 +30,12 @@ git commit -m "1st commit"
 git push origin main
 git push -f origin main
 
-#postgres
-brew install postgresql@16
-brew services start postgresql@16
-brew services stop postgresql@16
-brew services info postgresql@16
-brew services restart postgresql@16
-psql postgres
+
+
+
+
+
+
 
 #redis
 brew install redis 
@@ -43,15 +46,6 @@ redis-cli
 keys *
 cli info memory | grep 'used_memory.*human'; 
 
-#mongo
-brew tap mongodb/brew
-brew update
-brew install mongodb-community@7.0
-brew services start mongodb-community@7.0
-brew services stop mongodb-community@7.0
-brew services info mongodb-community@7.0
-mongosh
-
 #python alias zshrc
 alias pip=pip3
 alias python=python3
@@ -61,6 +55,14 @@ https://medium.com/@abhinavsinha_/download-and-configure-postgresql16-on-macos-d
 open ~/.zshrc
 export PATH="/opt/homebrew/opt/postgresql@14/bin:$PATH"
 source ~/.zshrc
+
+
+
+
+
+
+
+
 
 
 #postgres reset
@@ -124,3 +126,15 @@ tag replace=update post set tag=array_replace(tag,'xxx','yyy')
 tag append=update box set tag=array_append(tag,'xxx') where id=1;
 tag append no duplicate=update box set tag=(select array_agg(distinct t) from unnest(tag||'{xxx}') as t) where id=1;
 tag delete=update box set tag=array_remove(tag,'atom') where id=1;
+
+#follow-following
+with 
+x as (select * from follow where created_by_id in (select user_id from follow where created_by_id=1)),
+y as (select distinct(created_by_id) from x where user_id=1 limit 10 offset 0)
+select u.* from y left join users as u on y.created_by_id=u.id
+
+#follow-following not
+with 
+x as (select * from follow where created_by_id in (select user_id from follow where created_by_id=1)),
+y as (select distinct(created_by_id) from x where created_by_id not in (select created_by_id from x where user_id=1) limit 10 offset 0)
+select * from y left join users as u on y.created_by_id=u.id

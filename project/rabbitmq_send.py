@@ -1,6 +1,6 @@
-#run from script folder=python rabbitmq_send.py
+#start rabbitmq image from docker
+#run=python rabbitmq_send.py
 
-#!/usr/bin/env python
 import pika
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))

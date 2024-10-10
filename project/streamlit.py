@@ -1,4 +1,4 @@
-#run from script folder=streamlit run streamlit.py
+#run=streamlit run streamlit.py
 
 
 import streamlit as st

@@ -1,7 +1,6 @@
-#run from script folder=python rabbitmq_receiver.py
+#run=python rabbitmq_receiver.py
 
 
-#!/usr/bin/env python
 import pika, sys, os
 
 def main():
