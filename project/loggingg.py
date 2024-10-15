@@ -2,7 +2,7 @@
 import logging
 
 # Create and configure logger
-logging.basicConfig(filename="newfile.log",
+logging.basicConfig(filename="log.log",
                     format='%(asctime)s %(message)s',
                     filemode='w')
 

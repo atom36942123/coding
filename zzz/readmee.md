@@ -18,7 +18,8 @@
 1. download atom repo
 2. create .env file
 3. install requirements.txt
-4. run=python main.py / fastapi run main.py / fastapi dev main.py
+4. prod mode=python main.py / fastapi run main.py
+5. dev mode=fastapi dev main.py
 
 # run using docker
 1. download atom repo
