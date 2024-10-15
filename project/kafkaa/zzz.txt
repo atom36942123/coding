@@ -1,0 +1,13 @@
+#link
+https://medium.com/@bsanjay.prabu46/establish-a-local-kafka-ecosystem-using-docker-and-consume-messages-with-python-849a508e36fb
+
+#start
+docker compose up -d
+
+#stop
+docker compose down
+
+
+
+
+

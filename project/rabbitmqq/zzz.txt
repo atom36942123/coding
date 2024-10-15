@@ -1,0 +1,8 @@
+#docker run
+docker compose up -d
+
+#send
+python sender.py
+
+#receiev
+python receiver.py

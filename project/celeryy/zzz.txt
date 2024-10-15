@@ -1,0 +1,11 @@
+#link
+https://blog.adnansiddiqi.me/getting-started-with-celery-and-python/
+
+#add task in broker queue
+python add.py
+
+#start flower(new terminal)
+celery -A task.client flower --port=5555
+
+#start worker (new terminal)
+celery -A task.client worker --loglevel=info
