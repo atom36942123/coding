@@ -77,19 +77,36 @@ if __name__ == "__main__":
 # tag append no duplicate=update box set tag=(select array_agg(distinct t) from unnest(tag||'{xxx}') as t) where id=1;
 # tag delete=update box set tag=array_remove(tag,'atom') where id=1;
 
-#follow-following
-# with 
+
+#followers
+# select * from follow where user_id=23 offset 0 limit 10
+# with 
+# x as (select * from follow where user_id=23 offset 0 limit 10)
+# select x.id follow_id,u.id,u.username,u.profile_pic_url,
+# (case when x.created_by_id in (select user_id from follow where created_by_id=23) then 0 else 1 end) as fb
+# from x left join users as u on x.created_by_id=u.id
+
+#following
+# select * from follow where created_by_id=23 offset 0 limit 10
+# with 
+# x as (select * from follow where created_by_id=23 offset 0 limit 10)
+# select x.id as follow_id,u.id,u.username,u.profile_pic_url from x left join users as u on x.user_id=u.id
+
+# #follow-following
+# with 
 # x as (select * from follow where created_by_id in (select user_id from follow where created_by_id=1)),
 # y as (select distinct(created_by_id) from x where user_id=1 limit 10 offset 0)
 # select u.* from y left join users as u on y.created_by_id=u.id
- 
-#follow-following not back
-# with 
+
+# #follow-following not back
+# with 
 # x as (select * from follow where created_by_id in (select user_id from follow where created_by_id=1)),
 # y as (select distinct(created_by_id) from x where created_by_id not in (select created_by_id from x where user_id=1) limit 10 offset 0)
 # select * from y left join users as u on y.created_by_id=u.id
-
-#follow-following not back from login user perspective
+ 
+# #follow-following not back from login user perspective
 # with 
 # x as (select created_by_id from follow where user_id=2 and created_by_id not in (select user_id from follow where created_by_id=2) limit 10 offset 0)
 # select * from x left join users as u on x.created_by_id=u.id
+
+

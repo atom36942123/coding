@@ -49,4 +49,34 @@ async def update_user(request:Request,id:str):
 async def delete_user(request:Request,id:str):
    output=await db.users.delete_one({"_id":ObjectId(id)})
    return output.deleted_count
-   
+
+
+#api
+
+# curl --location 'http://0.0.0.0:8000/create-user' \
+# --header 'Content-Type: application/json' \
+# --data-raw '{
+#     "email": "test@test.com",
+#     "name": "test@test.com",
+#     "given_name": "Hello",
+#     "family_name": "Test",
+#     "nickname": "test",
+#     "last_ip": "94.121.163.63",
+#     "email_verified": true
+#   }'
+
+# curl --location 'http://0.0.0.0:8000/read-user?id=670634efaac4a652a062a291'
+
+# curl --location --request PUT 'http://0.0.0.0:8000/update-user?id=670634efaac4a652a062a291' \
+# --header 'Content-Type: application/json' \
+# --data-raw '{
+#     "email": "xxx@test.com",
+#     "name": "xxx@test.com",
+#     "given_name": "xxx",
+#     "family_name": "xxx",
+#     "nickname": "xxx",
+#     "last_ip": "xxx",
+#     "email_verified": false
+#   }'
+
+# curl --location --request DELETE 'http://0.0.0.0:8000/delete-user?id=670601803ae7dedbba5cf50b'
