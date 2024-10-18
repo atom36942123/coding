@@ -93,7 +93,6 @@ pip-upgrade
 # tag append no duplicate=update box set tag=(select array_agg(distinct t) from unnest(tag||'{xxx}') as t) where id=1;
 # tag delete=update box set tag=array_remove(tag,'atom') where id=1;
 
-
 #followers
 # select * from follow where user_id=23 offset 0 limit 10
 # with 
