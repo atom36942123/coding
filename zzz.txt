@@ -1,7 +1,7 @@
 #git
 vscode github connect
 git init
-git remote add origin https://github.com/atom36942123/xxx.git
+git remote add origin https://github.com/atom36942123/atom.git
 git branch -M main
 git add .
 git commit -m "1st commit"
@@ -27,8 +27,8 @@ docker rm <container_id>
 #env
 python3 -m venv venv
 source venv/bin/activate
-pip freeze > requirements.txt
 pip install -r requirements.txt
+pip freeze > requirements.txt
 pip install pip-upgrader
 pip-upgrade
 
